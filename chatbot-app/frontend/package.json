@@ -12,6 +12,8 @@
     "dev:full": "concurrently \"npm run server\" \"npm run dev\""
   },
   "dependencies": {
+    "@react-three/drei": "^10.3.0",
+    "@react-three/fiber": "^9.1.2",
     "axios": "^1.10.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
@@ -19,7 +21,8 @@
     "express": "^4.21.2",
     "openai": "^4.28.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "three": "^0.177.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
