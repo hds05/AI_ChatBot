@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float, Stars, Environment, Html, ContactShadows } from '@react-three/drei';
+import './Chatbot3D.css';
 
 function Face() {
   return (
@@ -67,7 +68,7 @@ function Particle({ position }) {
   );
 }
 
-const Chatbot3D = ({ inputText = "" }) => {
+const Chatbot3D = ({ inputText = "", className="" }) => {
   const particles = Array.from({ length: 25 }, () => [
     (Math.random() - 0.5) * 6,
     Math.random() * 2 - 1,
@@ -75,11 +76,12 @@ const Chatbot3D = ({ inputText = "" }) => {
   ]);
 
   return (
-    <div style={{ width: '100%', height: '50vh', background: '#0d0d0d' }}>
+    <div className="chatbot-3d-container">
       <Canvas
         shadows
         camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: '#0d0d0d' }}
+        className={className}
       >
         {/* Lighting */}
         <ambientLight intensity={0.3} />

@@ -3,13 +3,11 @@ import axios from 'axios';
 import './Chatbot.css';
 import Chatbot3D from '../Chatbot3D';
 
-
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const [inputText, setInputText] = useState("");
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -59,11 +57,13 @@ const Chatbot = () => {
 
   return (
     <div className="chatbot-wrapper">
+      <div className="chatbot-3d-wrapper">
+        <Chatbot3D className="chatbot-3d-container-1" />
+      </div>
       <div className="chatbot-container">
         <div className="chatbot-header">
           <h2>AI Chatbot</h2>
           <p>Ask me anything!</p>
-          <Chatbot3D inputText={inputText} />
         </div>
 
         <div className="messages-container">
@@ -119,6 +119,9 @@ const Chatbot = () => {
             </svg>
           </button>
         </div>
+      </div>
+      <div className="chatbot-3d-wrapper">
+        <Chatbot3D className="chatbot-3d-container-2"/>
       </div>
     </div>
   );
