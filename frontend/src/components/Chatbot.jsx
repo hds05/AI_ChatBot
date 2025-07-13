@@ -8,6 +8,10 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const [messageCount, setMessageCount] = useState(0); // New state variable
+  const [isInputDisabled, setIsInputDisabled] = useState(false); // New state variable
+
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -19,6 +23,11 @@ const Chatbot = () => {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+
+    if (messageCount >= 5) {
+      setIsInputDisabled(true);
+      return;
+    }
 
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
@@ -45,6 +54,7 @@ const Chatbot = () => {
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+       setMessageCount(prevCount => prevCount + 1); // Increment message count
     }
   };
 
@@ -105,7 +115,8 @@ const Chatbot = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Type your message here..."
-            disabled={isLoading}
+            // disabled={isLoading}
+             disabled={isInputDisabled} 
             rows="1"
           />
           <button
