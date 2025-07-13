@@ -69,7 +69,7 @@ function Particle({ position }) {
 }
 
 const Chatbot3D = ({ inputText = "", className="" }) => {
-  const particles = Array.from({ length: 25 }, () => [
+  const particles = Array.from({ length: 10 }, () => [
     (Math.random() - 0.5) * 6,
     Math.random() * 2 - 1,
     (Math.random() - 0.5) * 4,
