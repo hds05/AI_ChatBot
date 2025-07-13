@@ -48,13 +48,16 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/chat', {
-        message: input
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
+      const response = await
+        // axios.post('http://localhost:3001/api/chat',
+         axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+          {
+            message: input
+          }, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
 
       const botMessage = { role: 'assistant', content: response.data.response };
       setMessages(prev => [...prev, botMessage]);
