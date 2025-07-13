@@ -37,7 +37,7 @@ function Avatar({ inputText }) {
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={1.2} floatIntensity={1.3}>
+    <Float speed={1.5} rotationIntensity={1.2} floatIntensity={9}>
       <mesh ref={ref} castShadow>
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial

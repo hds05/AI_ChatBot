@@ -11,7 +11,16 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const [messageCount, setMessageCount] = useState(0); // New state variable
   const [isInputDisabled, setIsInputDisabled] = useState(false); // New state variable
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
 
   const scrollToBottom = () => {
@@ -50,7 +59,7 @@ const Chatbot = () => {
     try {
       const response = await
         // axios.post('http://localhost:3001/api/chat',
-         axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chat`,
           {
             message: input
           }, {
@@ -83,9 +92,12 @@ const Chatbot = () => {
 
   return (
     <div className="chatbot-wrapper">
-      <div className="chatbot-3d-wrapper">
-        <Chatbot3D className="chatbot-3d-container-1" />
-      </div>
+      {isDesktop && (
+        <div className="chatbot-3d-wrapper">
+          <Chatbot3D className="chatbot-3d-container-1" />
+        </div>
+      )}
+
       <div className="chatbot-container">
         <div className="chatbot-header">
           <h2>AI Chatbot</h2>
@@ -147,9 +159,12 @@ const Chatbot = () => {
           </button>
         </div>
       </div>
-      <div className="chatbot-3d-wrapper">
-        <Chatbot3D className="chatbot-3d-container-2" />
-      </div>
+
+      {isDesktop && (
+        <div className="chatbot-3d-wrapper">
+          <Chatbot3D className="chatbot-3d-container-2" />
+        </div>
+      )}
     </div>
   );
 };

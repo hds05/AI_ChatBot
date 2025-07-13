@@ -38,11 +38,22 @@ html {
   animation: fadeInUp 0.6s ease-out;
 }
 
+@media screen and (max-width: 768px) {
+  .chatbot-container {
+    margin-top: 90px;
+    margin-bottom: 90px;
+    max-height: 90vh;
+    border-radius: 16px;
+  }
+  
+}
+
 /* Header */
 .chatbot-header {
   background: linear-gradient(90deg, #6366f1, #7c3aed);
   color: #fff;
   padding: 18px;
+  padding-top: 60px;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
