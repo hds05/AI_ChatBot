@@ -9,7 +9,13 @@ dotenv.config();
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: 'https://ai-chatbot-frontend-three.vercel.app',
+        methods: ['GET', 'POST'],
+        credentials: true,
+    }
+));
 app.use(bodyParser.json());
 
 if (!process.env.OPENROUTER_API_KEY) {
