@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './Chatbot.css';
 import Chatbot3D from '../Chatbot3D';
+import Swal from 'sweetalert2';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -24,8 +25,20 @@ const Chatbot = () => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
+    // if (messageCount >= 5) {
+    //   setIsInputDisabled(true);
+    //   return;
+    // }
     if (messageCount >= 5) {
       setIsInputDisabled(true);
+
+      Swal.fire({
+        icon: 'info',
+        title: 'Limit Reached',
+        text: 'You’ve reached the limit of 5 messages.',
+        confirmButtonText: 'Okay',
+      });
+
       return;
     }
 
@@ -54,7 +67,7 @@ const Chatbot = () => {
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
-       setMessageCount(prevCount => prevCount + 1); // Increment message count
+      setMessageCount(prevCount => prevCount + 1); // Increment message count
     }
   };
 
@@ -116,7 +129,7 @@ const Chatbot = () => {
             onKeyPress={handleKeyPress}
             placeholder="Type your message here..."
             // disabled={isLoading}
-             disabled={isInputDisabled} 
+            disabled={isInputDisabled}
             rows="1"
           />
           <button
@@ -132,7 +145,7 @@ const Chatbot = () => {
         </div>
       </div>
       <div className="chatbot-3d-wrapper">
-        <Chatbot3D className="chatbot-3d-container-2"/>
+        <Chatbot3D className="chatbot-3d-container-2" />
       </div>
     </div>
   );
