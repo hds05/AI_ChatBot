@@ -9,13 +9,16 @@ dotenv.config();
 const app = express();
 const PORT = 3001;
 
-app.use(cors(
-    {
-        origin: ['https://ai-chatbot-frontend-three.vercel.app', 'http://localhost:5173'],
-        methods: ['GET', 'POST'],
-        credentials: true,
-    }
-));
+app.use(cors({
+    origin: [
+        'https://ai-chatbot-frontend-three.vercel.app',
+        'https://ai-chatbot-frontend-git-main-hds05s-projects.vercel.app',
+        'http://localhost:5173'
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(bodyParser.json());
 
 if (!process.env.OPENROUTER_API_KEY) {
@@ -42,7 +45,9 @@ app.post('/api/chat', async (req, res) => {
             {
                 headers: {
                     'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-                    'HTTP-Referer': 'http://localhost:3000',
+                    'HTTP-Referer': process.env.NODE_ENV === 'production' 
+                        ? 'https://ai-chatbot-frontend-git-main-hds05s-projects.vercel.app'
+                        : 'http://localhost:5173',
                     'X-Title': 'MyChatbot'
                 }
             }
