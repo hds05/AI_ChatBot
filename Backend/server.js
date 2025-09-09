@@ -11,7 +11,7 @@ const PORT = 3001;
 
 app.use(cors(
     {
-        origin: 'https://ai-chatbot-frontend-three.vercel.app',
+        origin: ['https://ai-chatbot-frontend-three.vercel.app', 'http://localhost:5173'],
         methods: ['GET', 'POST'],
         credentials: true,
     }
