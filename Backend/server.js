@@ -34,7 +34,8 @@ app.post('/api/chat', async (req, res) => {
         const response = await axios.post(
             'https://openrouter.ai/api/v1/chat/completions',
             {
-                model: 'mistralai/mistral-7b-instruct',   // ✅ this exists and is free to use
+                model: 'openrouter/free',   // ✅ this exists and is free to use
+                // model: 'mistralai/mistral-7b-instruct-v0.1',   // ✅ this exists and is free to use
                 messages: [
                     { role: 'system', content: 'You are a helpful assistant.' },
                     { role: 'user', content: message }
@@ -55,10 +56,15 @@ app.post('/api/chat', async (req, res) => {
 
 
         res.json({ response: response.data.choices[0].message.content });
-    } catch (err) {
-        console.error('OpenRouter API Error:', err.response?.data || err.message);
-        res.status(500).json({ error: 'AI request failed', details: err.message });
-    }
+} catch (err) {
+  console.error('OpenRouter status:', err.response?.status);
+  console.error('OpenRouter data:', err.response?.data);
+  console.error('OpenRouter message:', err.message);
+  res.status(err.response?.status || 500).json({
+    error: 'AI request failed',
+    details: err.response?.data || err.message
+  });
+}
 });
 
 app.listen(PORT, () => {
